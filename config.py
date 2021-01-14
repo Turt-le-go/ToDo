@@ -1,4 +1,4 @@
-PATH_TO_DATABASE = "db/database.db"
+PATH_TO_DATABASE = "database.db"
 
 exitCommands = ("exit", "quit", "q",)
 
