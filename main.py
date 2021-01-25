@@ -1,4 +1,4 @@
-from sys import exc_info
+from os import system
 from Tables import Tables
 from Tasks import Tasks
 from init import initDB
@@ -29,8 +29,7 @@ if __name__ == "__main__":
                 
         elif cmd[0] in createTaskCommands:
             try:
-                
-                id = Tasks.create(*cmd[1:4:]," ".join(cmd[4::]))
+                id = Tasks.create(*cmd[1:4:]," ".join(cmd[4::])) if len(cmd) > 3 else Tasks.create(cmd[1], cmd[2])
                 print("Task \"{}\" created. ID = {}".format(cmd[2], id))
             except:
                 error()
@@ -43,6 +42,12 @@ if __name__ == "__main__":
             except:
                 error()
 
+        elif cmd[0] in listOfTablesCommands:
+            try:
+                printListOfTables(Tables.list())
+            except:
+                error()
+
         elif cmd[0] in listAllCommands:
             try:    
                 tablesID = [table[0] for table in Tables.list()]
@@ -52,7 +57,28 @@ if __name__ == "__main__":
                     printTable(tableName, tasks)
             except:
                 error()
-        elif cmd[0] in listOfTablesCommands:
-            printListOfTables(Tables.list())
+
+        elif cmd[0] in rmTaskCommands:
+            try:
+                Tasks.rmTask(cmd[1])
+            except:
+                error()
+
+        elif cmd[0] in rmTableCommands:
+            try:
+                Tables.rmTable(cmd[1])
+                Tasks.rmTasksFromTable(cmd[1])
+            except:
+                error()
+
+        elif cmd[0] in rmAllCommands:
+            system("rm "+ PATH_TO_DATABASE)
+            initDB()
+
+        elif cmd[0] in changeStatusCommands:
+            try:
+                Tasks.changeStatus(cmd[1])
+            except:
+                error()
         else:
             error()

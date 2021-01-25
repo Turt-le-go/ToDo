@@ -1,7 +1,6 @@
 import sqlite3
 from utils import getDateNowTimestamp, convertDate
 from config import PATH_TO_DATABASE
-#from Task import Task
 
 
 class Tables:
@@ -35,4 +34,12 @@ class Tables:
             db.commit()
         return tables
 
-        
+    @staticmethod
+    def rmTable(id):
+        with sqlite3.connect(PATH_TO_DATABASE) as db:
+            cursor = db.cursor()
+            cursor.execute("""SELECT name FROM tables WHERE id=?""", (id,))
+            table = cursor.fetchall()[0][0]
+            cursor.execute("""DELETE FROM tables WHERE id=?""", (id,))
+            db.commit()
+        return table

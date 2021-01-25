@@ -11,6 +11,12 @@ listAllCommands = ("listAll","la",)
 listOfTablesCommands = ("listOfTables",)
 listTableCommands = ("listTable","lt",)
 
+rmTaskCommands = ("rmTask",)
+rmTableCommands = ("rmTable",)
+rmAllCommands = ("rmAll",)
+
+changeStatusCommands = ("changeStatus",)
+
 helpText = """
 Довідка ToDo:
 
